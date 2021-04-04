@@ -1,0 +1,36 @@
+body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+}
+  
+  #btn-img {
+      width: 25%;
+  }
+
+  .play {
+    display: flex;
+    justify-content: center;  
+    width: 600px;
+  }
+  
+  #start-button {
+      display: flex;
+      
+}
+  
+  .play p {
+    font-size: 1.2rem;
+    font-family: "Verdana"
+  }
+  
+  #game-board {
+    display: flex;
+    justify-content: center;
+    width: 90vw;
+    height: 85vh;
+    
+  }
+  
