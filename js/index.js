@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 class GameObject {
-  constructor(x, y, width, height, img) {
+  constructor(x, y, width, height, img, fruitX) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -10,96 +10,135 @@ class GameObject {
     this.img = img;
     this.speedX = 0;
     this.speedY = 1;
+    this.fruitX = fruitX;
   }
-
+  // updates the position of the fruits which are objects of GameObject class 
+  //called inside the update invoked inside the "update()"" method inside the Game class
+  //(requestAnimationFrame)
   updatePosition() {
     this.x += this.speedX;
     this.y += this.speedY;
   }
-
+  // generate new images with updated position of the fruit objects invoked in the updateRainItems 
+  //inside the forEach for every fruit
   draw() {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
+ 
 }
+
+// "./images/grape.png",
+//       "./images/kiwi.png",
+//       "./images/lemon.png",
+//       "./images/orange.png",
+//       "./images/pear.png",
+//       "./images/watermelon.png",
+//       "./images/pineapple.png",
 
 class Game {
   constructor() {
     this.fruits = [];
-    this.fruitList = [];
+    // address list of the images for the rain of fruits which is used to randomly generate new 
+    //fruits used as the source for the fruitImage.src =""
+    this.fruitList = [ 
+      {name: "strawberry", path: "./images/strawberry.png"}, 
+      {name: "apple", path: "./images/apple.png",},      
+      {name: "banana", path:"./images/banana.png"},
+      {name: "blackberry", path: "./images/blackberry.png"},
+      {name: "cherry", path: "./images/cherry.png"},
+    ];
     this.frames = 0;
     this.score = 0;
     this.animationId;
+    this.gameObject = null;
   }
 
-  start = () => {
-    this.updateGame();
+  removeFruit = (x, y) => {
+    this.fruits.forEach((fruit, index, current) => {
+      // console.log(`fruit x: ${fruit.x}, fruit y: ${fruit.x}`);
+      // console.log(`mouse x: ${x}, mouse y: ${x}`);
+      if (
+        parseInt(x) >= parseInt(fruit.x)&&
+        parseInt(x) <= parseInt(fruit.x + 80)&&
+        parseInt(y) >= parseInt(fruit.y )&&
+        parseInt(y) <= parseInt(fruit.y + 80)
+        ) {
+        current.splice(index, 1);
+        console.log(fruit.fruitX);
+      }
+    });
   };
 
   updateRainItems = () => {
     this.frames++;
 
-    for (let i = 0; i < this.fruits.length; i++) {
-      this.fruits[i].updatePosition();
-      this.fruits[i].draw();
-    }
+    ctx.fillStyle = "PaleTurquoise";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    if (this.frames % 80 === 0) {
-      const originY = 15;
+    const bgImg = new Image();
+    bgImg.src = "/fun-rain/images/background-fruits.png";
+    const background = new GameObject(-50, -240, 1000, 320, bgImg);
+    background.draw();
 
-      const minX = 20;
+    const bottomBgImg = new Image();
+    bottomBgImg.src = "/fun-rain/images/background-flowers.png";
+    const bottomBackground = new GameObject(0, 450, 900, 280, bottomBgImg);
+    bottomBackground.draw();
+
+    this.fruits.forEach((fruit) => {
+      fruit.updatePosition();
+      fruit.draw();
+    });
+
+    const fruitImage = new Image();
+    let randomFruit = Math.floor(Math.random() * 5);
+
+    fruitImage.src = this.fruitList[randomFruit].path;
+
+    if (this.frames % 30 === 0) {
+      const originY = 10;
+
       const maxX = canvas.width;
-      const randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-      
-
-
-
-      
-      
-      const fruitImage = new Image();
-      fruitImage.src = "/fun-rain/images/strawberry.png";
-      const fruit = new GameObject(randomX, originY, 50, 50, fruitImage);
+      const randomX = Math.floor(Math.random() * (maxX - 20));
+      const fruit = new GameObject(randomX, originY, 80, 80, fruitImage, this.fruitList[randomFruit].name);
 
       this.fruits.push(fruit);
       this.score += 5;
     }
   };
 
-    updateScore() {
-    ctx.font = "30px Verdana";
-    ctx.fillStyle = "black";
-    ctx.fillText(`Score: ${this.score}`, 80, 40);
-    }
-
-    clear = () => {
+  clear = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    };
+  };
 
-    updateGame = () => {
-
+  updateGame = () => {
+    
+    // this.removeFruit(this.fruit.x, this.fruit.y)
     this.clear();
-    this.updateScore();
+    // this.updateScore();
     this.updateRainItems();
     this.animationId = requestAnimationFrame(this.updateGame);
-    // this.checkGameOver();
-    };
-}
-
-function startGame() {
-  const game = new Game();
-  game.start();
-  
-  const bgImg = new Image();
-  bgImg.src = "/fun-rain/images/background-flowers.png";
-  const background = new GameObject(0, 0, canvas.width, canvas.height, bgImg)
-  background.draw();  
-
-  document.addEventListener("keydown", (event) => {
-  });
-  
+    // this.checkGameCompleted();
+  };
 }
 
 window.onload = () => {
+  const game = new Game();
   document.getElementById("start-button").onclick = () => {
-    startGame();
+    game.updateGame();
   };
+
+  function removeFruitCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    // console.log("x: " + x + " y: " + y)
+    // console.log(rect);
+    game.removeFruit(x, y);
+  }
+
+  const canvas = document.querySelector("canvas");
+  canvas.addEventListener("click", function (e) {
+    removeFruitCursorPosition(canvas, e);
+  });
 };

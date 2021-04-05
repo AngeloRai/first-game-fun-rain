@@ -18,8 +18,11 @@ body {
   
   #start-button {
       display: flex;
-      
-}
+      background-color: white;
+      border-color: white;
+      box-shadow: none;
+
+  }
   
   .play p {
     font-size: 1.2rem;
