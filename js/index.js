@@ -9,7 +9,7 @@ class GameObject {
     this.height = height;
     this.img = img;
     this.speedX = 0;
-    this.speedY = 1;
+    this.speedY = 2;
     this.fruitX = fruitX;
   }
   // updates the position of the fruits which are objects of GameObject class 
@@ -27,17 +27,14 @@ class GameObject {
  
 }
 
-// "./images/grape.png",
-//       "./images/kiwi.png",
-//       "./images/lemon.png",
-//       "./images/orange.png",
-//       "./images/pear.png",
-//       "./images/watermelon.png",
-//       "./images/pineapple.png",
+
 
 class Game {
   constructor() {
     this.fruits = [];
+    this.frames = 0;
+    this.score = 0;
+    this.animationId;
     // address list of the images for the rain of fruits which is used to randomly generate new 
     //fruits used as the source for the fruitImage.src =""
     this.fruitList = [ 
@@ -46,11 +43,14 @@ class Game {
       {name: "banana", path:"./images/banana.png"},
       {name: "blackberry", path: "./images/blackberry.png"},
       {name: "cherry", path: "./images/cherry.png"},
+      {name: "grape", path: "./images/grape.png"},
+      {name: "kiwi", path: "./images/kiwi.png"},
+      {name: "lemon", path: "./images/lemon.png"},
+      {name: "orange", path: "./images/orange.png"},
+      {name: "pear", path: "./images/pear.png"},
+      {name: "watermelon", path: "./images/watermelon.png"},
+      {name: "pineapple", path: "./images/pineapple.png"},
     ];
-    this.frames = 0;
-    this.score = 0;
-    this.animationId;
-    this.gameObject = null;
   }
 
   removeFruit = (x, y) => {
@@ -59,9 +59,9 @@ class Game {
       // console.log(`mouse x: ${x}, mouse y: ${x}`);
       if (
         parseInt(x) >= parseInt(fruit.x)&&
-        parseInt(x) <= parseInt(fruit.x + 80)&&
+        parseInt(x) <= parseInt(fruit.x + 100)&&
         parseInt(y) >= parseInt(fruit.y )&&
-        parseInt(y) <= parseInt(fruit.y + 80)
+        parseInt(y) <= parseInt(fruit.y + 100)
         ) {
         current.splice(index, 1);
         console.log(fruit.fruitX);
@@ -82,7 +82,7 @@ class Game {
 
     const bottomBgImg = new Image();
     bottomBgImg.src = "/fun-rain/images/background-flowers.png";
-    const bottomBackground = new GameObject(0, 450, 900, 280, bottomBgImg);
+    const bottomBackground = new GameObject(0, 400, 900, 350, bottomBgImg);
     bottomBackground.draw();
 
     this.fruits.forEach((fruit) => {
@@ -91,7 +91,7 @@ class Game {
     });
 
     const fruitImage = new Image();
-    let randomFruit = Math.floor(Math.random() * 5);
+    let randomFruit = Math.floor(Math.random() * this.fruitList.length);
 
     fruitImage.src = this.fruitList[randomFruit].path;
 
