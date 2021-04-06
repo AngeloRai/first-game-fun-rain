@@ -1,6 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+const sideFruit = document.getElementById("current-fruit");
+
 const pop = new Audio();
 pop.src = "./sounds/pop.wav";
 pop.volume = 0.1;
@@ -78,8 +80,13 @@ class Game {
   //method to splice called fruit if clicked on correctly
   removeFruit = (x, y) => {
     const sounds = new Audio();
+    sounds.volume = 0.1
     sounds.src = this.soundList[this.count].path;
     let soundName = this.soundList[this.count].name;
+    
+    // console.log(this.soundList[this.count]);
+    // console.log(this.fruitList[this.count]);
+    
     sounds.play();
     //random audio for 3 the "good job" sounds played everytime correct fruit is clicked on
     let randomYay = Math.floor(Math.random() * this.yaySounds.length);
@@ -131,7 +138,12 @@ class Game {
       const sound = new Audio();
       sound.src = this.soundList[this.count].path;
       sound.play();
+      sideFruit.src = this.fruitList[this.count].path
+
     }
+
+
+
 
     if (this.frames % 15 === 0) {
       const originY = 0;
