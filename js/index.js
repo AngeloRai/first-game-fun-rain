@@ -13,7 +13,7 @@ class GameObject {
     this.height = height;
     this.img = img;
     this.speedX = 0;
-    this.speedY = 2;
+    this.speedY = 1;
     this.fruitName = fruitName;
   }
   // updates the position of the fruits which are objects of GameObject class
@@ -29,12 +29,11 @@ class GameObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 }
+// address list of the images for the rain of fruits which is used to randomly generate new
+//fruits used as the source for the fruitImage.src =""
 
-
-
-
-
-
+//sound adresses to call the fruit to click on matching with the fruit clicked on
+//If clicked on correct fruit, fruit disapears and next fruit is called
 class Game {
   constructor() {
     this.fruits = [];
@@ -42,8 +41,6 @@ class Game {
     this.score = 0;
     this.animationId;
     this.count = 0;
-    // address list of the images for the rain of fruits which is used to randomly generate new
-    //fruits used as the source for the fruitImage.src =""
     this.fruitList = [
       { name: "strawberry", path: "./images/strawberry.png" },
       { name: "apple", path: "./images/apple.png" },
@@ -72,16 +69,24 @@ class Game {
       { name: "watermelon", path: "./sounds/watermelon.mp3" },
       { name: "pineapple", path: "./sounds/pineapple.mp3" },
     ];
+    this.yaySounds = [
+      "./sounds/victory.mp3",
+      "./sounds/good_job.mp3",
+      "./sounds/winner_sound.mp3",
+    ];
   }
-   
+  //method to splice called fruit if clicked on correctly
   removeFruit = (x, y) => {
-    
     const sounds = new Audio();
     sounds.src = this.soundList[this.count].path;
     let soundName = this.soundList[this.count].name;
     sounds.play();
-    
-    this.fruits.forEach((fruit, index, array) => {
+    //random audio for 3 the "good job" sounds played everytime correct fruit is clicked on
+    let randomYay = Math.floor(Math.random() * this.yaySounds.length);
+    const goodJobSounds = new Audio();
+    goodJobSounds.src = this.yaySounds[randomYay];
+    //loop to check if click is the same pixel as the called fruit, if so, fruit is spliced
+    this.fruits.forEach((fruit, index) => {
       if (
         parseInt(x) >= parseInt(fruit.x) &&
         parseInt(x) <= parseInt(fruit.x + 80) &&
@@ -90,15 +95,9 @@ class Game {
       ) {
         if (soundName == fruit.fruitName) {
           this.fruits.splice(index, 1);
-          console.log(`fruit name: ${fruit.fruitName}`);
-          console.log(`sound name: ${soundName}`);
           this.count++;
-          sounds.play();
-          console.log(this.count);
+          goodJobSounds.play();
         }
-
-        // console.log(`fruit x: ${fruit.x}, fruit y: ${fruit.x}`);
-        // console.log(`mouse x: ${x}, mouse y: ${x}`);
       }
     });
   };
@@ -128,18 +127,17 @@ class Game {
       fruit.draw();
     });
 
-    const sound = new Audio();
-    sound.src = this.soundList[this.count].path;
-
     if (this.frames % 240 === 0) {
-      sound.play()
+      const sound = new Audio();
+      sound.src = this.soundList[this.count].path;
+      sound.play();
     }
 
     if (this.frames % 15 === 0) {
       const originY = 0;
 
       const maxX = canvas.width;
-      const randomX = Math.floor(Math.random() * (maxX - 20));
+      const randomX = Math.floor(Math.random() * (maxX - 60));
       const fruit = new GameObject(
         randomX,
         originY,
@@ -154,17 +152,30 @@ class Game {
     }
   };
 
+  checkGameCompleted = () => {
+    if (this.count == 12) {
+      let yaySoundCheering = new Audio();
+      yaySoundCheering.src = "./sounds/kids-cheering.mp3";
+
+      yaySoundCheering.play();
+
+      ctx.fillStyle = "purple";
+      ctx.font = "60px Verdana";
+      ctx.fillText("CONGRATULATIONS!", 130, 300);
+
+      cancelAnimationFrame(this.animationId);
+    }
+  };
+
   clear = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
 
   updateGame = () => {
-    // this.removeFruit(this.fruit.x, this.fruit.y)
     this.clear();
-    // this.updateScore();
     this.updateRainItems();
     this.animationId = requestAnimationFrame(this.updateGame);
-    // this.checkGameCompleted();
+    this.checkGameCompleted();
   };
 }
 
@@ -178,8 +189,6 @@ window.onload = () => {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    // console.log("x: " + x + " y: " + y);
-    // console.log(rect);
     game.removeFruit(x, y);
   }
 
@@ -187,6 +196,5 @@ window.onload = () => {
   canvas.addEventListener("click", function (e) {
     removeFruitCursorPosition(canvas, e);
     pop.play();
-    
   });
 };
