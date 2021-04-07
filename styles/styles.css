@@ -12,6 +12,11 @@ body {
   width: 55%;
 }
 
+.volume {
+  position: relative;
+  margin-bottom: 45rem;
+}
+
 .play {
   display: flex;
   flex-direction: column;

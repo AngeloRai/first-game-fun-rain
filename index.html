@@ -8,9 +8,14 @@
     <title>Fun Rain</title>
   </head>
   <body>
+    <div class="volume">
+      <button onclick="enableMute()" type="button">Mute</button>
+      <button onclick="disableMute()" type="button">Play</button>
+    </div>
+    
     <div class="play">
       <div class="fruit-display">
-        <img id="current-fruit" src="" alt="" />
+        <img id="current-fruit" src="" alt="display of fruit to be clicked" />
       </div>
       <button id="start-button">
         <p>LET'S PLAY! Click on the correct fruit! Click again to go faster.</p>
@@ -24,3 +29,5 @@
     <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>
+
+
