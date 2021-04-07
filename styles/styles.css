@@ -5,6 +5,7 @@ body {
   align-items: center;
   height: 80vh;
   background-color: rgb(20, 38, 66);
+  margin-top: 4rem;
 }
 
 #btn-img {
