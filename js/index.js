@@ -129,12 +129,14 @@ class Game {
       fruit.draw();
     });
 
-    if (this.frames % 240 === 0) {
+    if (this.frames % 340 === 0) {
       const sound = new Audio();
       sound.src = this.soundList[this.count].path;
       sound.play();
+    }
+    
+    if (this.frames % 240 === 0) {
       sideFruit.src = this.fruitList[this.count].path
-
     }
 
     if (this.frames % 20 === 0) {
