@@ -82,6 +82,9 @@ class Game {
   }
   //method to splice called fruit if clicked on correctly
   removeFruit = (x, y) => {
+    const disagreeSound = new Audio();
+    disagreeSound.src = "./sounds/disagree.mp3";
+    
     const sounds = new Audio();
     sounds.src = this.soundList[this.count].path;
     sounds.volume = 0.1;
@@ -104,6 +107,8 @@ class Game {
           this.fruits.splice(index, 1);
           this.count++;
           goodJobSounds.play();
+        }else {
+          disagreeSound.play()
         }
       }
     });
@@ -204,7 +209,6 @@ window.onload = () => {
     game.removeFruit(x, y);
   }
 
-  const canvas = document.querySelector("canvas");
   canvas.addEventListener("click", function (e) {
     removeFruitCursorPosition(canvas, e);
     pop.play();
