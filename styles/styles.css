@@ -1,72 +1,62 @@
 body {
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    background-color: rgb(20, 38, 66);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background-color: rgb(20, 38, 66);
 }
-  
-  #btn-img {
-      width: 55%;
-  }
 
-  .play {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around; 
-    height: 180px; 
-    width: 150px
-  }
-  
+#btn-img {
+  width: 55%;
+}
+
+.play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 180px;
+  width: 150px;
+}
+
 .fruit-display {
   margin-right: 8rem;
   padding: 2rem;
-  
 }
 
-  #start-button {
-    display: flex;
-    cursor: pointer;
-    width: 180px;
-    height: 200px;
-    margin-right: 8rem;
-    /* position: relative; */
-    /* padding: 2.5rem 7.5rem; */
-    border-radius: 2.75rem;
-    /* line-height: 2.5rem; */
-    font-size: 2rem;
-    font-weight: 600;
-    border: 1px solid #012880;
-    background-image: linear-gradient(-180deg, #FF89D6 0%, #C01F9E 100%);
-    box-shadow: 0 1rem 1.25rem 0 rgba(22,75,195,0.50),
-							0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
-							0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset,
-							0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+#start-button {
+  display: flex;
+  cursor: pointer;
+  width: 180px;
+  height: 200px;
+  margin-right: 8rem;
+  border-radius: 2.75rem;
+  font-size: 2rem;
+  font-weight: 600;
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.5),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+}
 
-  }
-  
-  .play p {
-    font-size: 1.2rem;
-    font-family: "Verdana"
-  }
-  
-  #game-board {
-    display: flex;
-    justify-content: center;
-    /* width: 900px;
-    height: 600px; */
-    
-    background-image: url(/fun-rain/images/watermelon.png);
-    
-  }
+.play p {
+  font-size: 1.2rem;
+  font-family: "Verdana";
+}
 
-  #current-fruit {
-    width: 150px;
-  }
+#game-board {
+  display: flex;
+  justify-content: center;
+  background-image: url(/fun-rain/images/watermelon.png);
+}
 
-  #canvas {
-    cursor: pointer;
-  }
-  
+#current-fruit {
+  width: 150px;
+}
+
+#canvas {
+  cursor: pointer;
+}
