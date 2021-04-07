@@ -135,7 +135,7 @@ class Game {
       sound.play();
     }
     
-    if (this.frames % 240 === 0) {
+    if (this.frames % 40 === 0) {
       sideFruit.src = this.fruitList[this.count].path
     }
 
