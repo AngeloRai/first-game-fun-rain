@@ -15,7 +15,7 @@ class GameObject {
     this.height = height;
     this.img = img;
     this.speedX = 0;
-    this.speedY = 1;
+    this.speedY = 1.5;
     this.fruitName = fruitName;
   }
   // updates the position of the fruits which are objects of GameObject class
@@ -80,13 +80,8 @@ class Game {
   //method to splice called fruit if clicked on correctly
   removeFruit = (x, y) => {
     const sounds = new Audio();
-    sounds.volume = 0.1
     sounds.src = this.soundList[this.count].path;
     let soundName = this.soundList[this.count].name;
-    
-    // console.log(this.soundList[this.count]);
-    // console.log(this.fruitList[this.count]);
-    
     sounds.play();
     //random audio for 3 the "good job" sounds played everytime correct fruit is clicked on
     let randomYay = Math.floor(Math.random() * this.yaySounds.length);
@@ -116,12 +111,12 @@ class Game {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const bgImg = new Image();
-    bgImg.src = "/fun-rain/images/fruits-background-removebg-preview.png";
+    bgImg.src = "./images/fruits-background.png";
     const background = new GameObject(0, -20, 900, 580, bgImg);
     background.draw();
 
     const bottomBgImg = new Image();
-    bottomBgImg.src = "/fun-rain/images/background-flowers.png";
+    bottomBgImg.src = "./images/background-flowers.png";
     const bottomBackground = new GameObject(0, 340, 900, 450, bottomBgImg);
     bottomBackground.draw();
 
@@ -142,10 +137,7 @@ class Game {
 
     }
 
-
-
-
-    if (this.frames % 15 === 0) {
+    if (this.frames % 20 === 0) {
       const originY = 0;
 
       const maxX = canvas.width;
