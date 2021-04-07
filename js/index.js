@@ -3,9 +3,12 @@ const ctx = canvas.getContext("2d");
 
 const sideFruit = document.getElementById("current-fruit");
 
+const backgroundMusic = new Audio()
+backgroundMusic.src = "./sounds/cheerful_background_music.mp3"
+backgroundMusic.volume = 0.01;
 const pop = new Audio();
 pop.src = "./sounds/pop.wav";
-pop.volume = 0.1;
+
 
 class GameObject {
   constructor(x, y, width, height, img, fruitName) {
@@ -81,12 +84,14 @@ class Game {
   removeFruit = (x, y) => {
     const sounds = new Audio();
     sounds.src = this.soundList[this.count].path;
+    sounds.volume = 0.1;
     let soundName = this.soundList[this.count].name;
     sounds.play();
     //random audio for 3 the "good job" sounds played everytime correct fruit is clicked on
     let randomYay = Math.floor(Math.random() * this.yaySounds.length);
     const goodJobSounds = new Audio();
     goodJobSounds.src = this.yaySounds[randomYay];
+    goodJobSounds.volume = 0.3;
     //loop to check if click is the same pixel as the called fruit, if so, fruit is spliced
     this.fruits.forEach((fruit, index) => {
       if (
@@ -189,6 +194,7 @@ window.onload = () => {
   const game = new Game();
   document.getElementById("start-button").onclick = () => {
     game.updateGame();
+    backgroundMusic.play();
   };
 
   function removeFruitCursorPosition(canvas, event) {
