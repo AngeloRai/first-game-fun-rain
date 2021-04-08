@@ -71,6 +71,10 @@ button {
   width: 120px;
 }
 
+em {
+  font-size: 1.5rem;
+}
+
 #canvas {
   cursor: pointer;
   padding-right: 15rem;
