@@ -1,11 +1,25 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 const sideFruit = document.getElementById("current-fruit");
 
+const backgroundMusic = new Audio();
+backgroundMusic.src = "./sounds/background.mp3";
+backgroundMusic.volume = 0.01;
 const pop = new Audio();
 pop.src = "./sounds/pop.wav";
-pop.volume = 0.1;
+pop.volume = 0.3;
+const disagreeSound = new Audio();
+disagreeSound.src = "./sounds/disagree.mp3";
+disagreeSound.volume = 0.1;
+const sounds = new Audio();
+sounds.volume = 0.05;
+const sound = new Audio();
+sound.volume = 0.1;
+const goodJobSounds = new Audio();
+goodJobSounds.volume = 0.05;
+let yaySoundCheering = new Audio();
+yaySoundCheering.src = "./sounds/kids-cheering.mp3";
+yaySoundCheering.volume = 0.05;
 
 class GameObject {
   constructor(x, y, width, height, img, fruitName) {
@@ -78,18 +92,15 @@ class Game {
     ];
   }
   //method to splice called fruit if clicked on correctly
+
   removeFruit = (x, y) => {
-    const disagreeSound = new Audio();
-    disagreeSound.src = "./sounds/disagree.mp3";
-    
-    const sounds = new Audio();
     sounds.src = this.soundList[this.count].path;
     let soundName = this.soundList[this.count].name;
     sounds.play();
     //random audio for 3 the "good job" sounds played everytime correct fruit is clicked on
     let randomYay = Math.floor(Math.random() * this.yaySounds.length);
-    const goodJobSounds = new Audio();
     goodJobSounds.src = this.yaySounds[randomYay];
+    
     //loop to check if click is the same pixel as the called fruit, if so, fruit is spliced
     this.fruits.forEach((fruit, index) => {
       if (
@@ -102,51 +113,48 @@ class Game {
           this.fruits.splice(index, 1);
           this.count++;
           goodJobSounds.play();
-        }else {
-          disagreeSound.play()
+        } else {
+          disagreeSound.play();
         }
       }
     });
   };
-  // This is the most most important block in which all the fruits are randomly drawn and positions are updated
-  // And background images are drawn as well as the time frames for generation of new fruits and display of fruit 
-  // to be clicked to the left of the canvas
+
   updateRainItems = () => {
     this.frames++;
-
-    ctx.fillStyle = "PaleTurquoise";  // blue central background
+    ctx.fillStyle = "PaleTurquoise";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const bgImg = new Image(); // top background image
+    const bgImg = new Image();
     bgImg.src = "./images/fruits-background.png";
     const background = new GameObject(0, -20, 900, 580, bgImg);
     background.draw();
 
-    const bottomBgImg = new Image(); // bottom background image
+    const bottomBgImg = new Image();
     bottomBgImg.src = "./images/background-flowers.png";
     const bottomBackground = new GameObject(0, 340, 900, 450, bottomBgImg);
     bottomBackground.draw();
 
-    let randomFruit = Math.floor(Math.random() * this.fruitList.length); //random number to used as index for the fruit list
+    let randomFruit = Math.floor(Math.random() * this.fruitList.length);
     const fruitImage = new Image();
-    fruitImage.src = this.fruitList[randomFruit].path; //assiging the source of the fruit with random number index
+    fruitImage.src = this.fruitList[randomFruit].path;
 
-    this.fruits.forEach((fruit) => { //loops through the fruits to draw and update position
+    this.fruits.forEach((fruit) => {
       fruit.updatePosition();
       fruit.draw();
     });
 
-    if (this.frames % 40 === 0) { // sets time frame for the side fruit display
-      sideFruit.src = this.fruitList[this.count].path
-    }
-
-    if (this.frames % 340 === 0) { // sets time frame for the call out of the fruit to be clicked on
-      const sound = new Audio();
+    if (this.frames % 340 === 0) {
       sound.src = this.soundList[this.count].path;
       sound.play();
-      }
+      
+    }
 
-    if (this.frames % 20 === 0) { // sests time frame for the number of fruits generated per second
+    if (this.frames % 40 === 0) {
+      sideFruit.src = this.fruitList[this.count].path;
+    }
+
+    if (this.frames % 20 === 0) {
       const originY = 0;
 
       const maxX = canvas.width;
@@ -165,26 +173,22 @@ class Game {
     }
   };
 
-  checkGameCompleted = () => { // completion of the game if all called fruits where clicked on
+  checkGameCompleted = () => {
     if (this.count == 12) {
-      let yaySoundCheering = new Audio();
-      yaySoundCheering.src = "./sounds/kids-cheering.mp3";
-
-      yaySoundCheering.play(); //plays a YAY sound when game completed
-
+      yaySoundCheering.play();
       ctx.fillStyle = "purple";
       ctx.font = "60px Verdana";
-      ctx.fillText("CONGRATULATIONS!", 130, 300); // prints congratulatios when game completed
+      ctx.fillText("CONGRATULATIONS!", 130, 300);
 
       cancelAnimationFrame(this.animationId);
     }
   };
 
   clear = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); //clears the canvas before redrwawing all images at given tiem frame
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
 
-  updateGame = () => { // important blobk to generate movement on the canvas with "requestAnimationFrame"
+  updateGame = () => {
     this.clear();
     this.updateRainItems();
     this.animationId = requestAnimationFrame(this.updateGame);
@@ -192,21 +196,42 @@ class Game {
   };
 }
 
-window.onload = () => { // loads the entire game when page is loaded
+window.onload = () => {
   const game = new Game();
-  document.getElementById("start-button").onclick = () => { // displays the canvas when button is clicked
+  document.getElementById("start-button").onclick = () => {
     game.updateGame();
+    backgroundMusic.play();
   };
 
-  function removeFruitCursorPosition(canvas, event) { 
+  function removeFruitCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;// sets the coordinates of mouse on canvas and matches with fruit coordinates
+    const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    game.removeFruit(x, y); //invokes the method to make fruits disappear when clicked on
+    game.removeFruit(x, y);
   }
-  
-  canvas.addEventListener("click", function (e) { // detects the click on the canvas
-    removeFruitCursorPosition(canvas, e); //invokes the function to match the coordinates of fruit with mouse postion
-    pop.play(); // plays a pop sound for every click on the canvas
+
+  canvas.addEventListener("click", function (e) {
+    removeFruitCursorPosition(canvas, e);
+    pop.play();
   });
 };
+
+function enableMute() {
+  backgroundMusic.muted = true;
+  disagreeSound.muted = true;
+  pop.muted = true;
+  sounds.muted = true;
+  sound.muted = true;
+  goodJobSounds.muted = true; 
+  yaySoundCheering.muted = true;
+}
+
+function disableMute() {
+  backgroundMusic.muted = false;
+  disagreeSound.mutes = false;
+  pop.muted = false;
+  sounds.muted = false;
+  sound.muted = false;
+  goodJobSounds.muted = false;
+  yaySoundCheering.muted = false;
+}

@@ -12,18 +12,31 @@ body {
   width: 55%;
 }
 
+.volume {
+  display: flex;
+  justify-content: flex-start;
+  height: 2rem;
+}
+button {
+  border-radius: 2.75rem;
+  font-size: 0.8rem;
+  color: rgb(245, 239, 174);
+  font-weight: 400;
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.5),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+}
+
 .play {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  height: 180px;
-  width: 150px;
-}
-
-.fruit-display {
-  margin-right: 8rem;
-  padding: 2rem;
+  justify-content: space-between;
+  height: 480px;
+  width: 350px;
 }
 
 #start-button {
@@ -31,7 +44,6 @@ body {
   cursor: pointer;
   width: 180px;
   height: 200px;
-  margin-right: 8rem;
   border-radius: 2.75rem;
   font-size: 2rem;
   font-weight: 600;
@@ -52,12 +64,18 @@ body {
   display: flex;
   justify-content: center;
   background-image: url(/fun-rain/images/watermelon.png);
+  position: relative;
 }
 
 #current-fruit {
-  width: 150px;
+  width: 120px;
+}
+
+em {
+  font-size: 1.5rem;
 }
 
 #canvas {
   cursor: pointer;
+  padding-right: 15rem;
 }
