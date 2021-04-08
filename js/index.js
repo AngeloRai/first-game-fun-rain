@@ -175,10 +175,7 @@ class Game {
 
   checkGameCompleted = () => {
     if (this.count == 12) {
-      
-
       yaySoundCheering.play();
-      
       ctx.fillStyle = "purple";
       ctx.font = "60px Verdana";
       ctx.fillText("CONGRATULATIONS!", 130, 300);
