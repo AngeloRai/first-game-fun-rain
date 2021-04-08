@@ -1,13 +1,25 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 const sideFruit = document.getElementById("current-fruit");
 
 const backgroundMusic = new Audio();
-backgroundMusic.src = "./sounds/cheerful_background_music.mp3";
+backgroundMusic.src = "./sounds/background.mp3";
 backgroundMusic.volume = 0.01;
 const pop = new Audio();
 pop.src = "./sounds/pop.wav";
+pop.volume = 0.3;
+const disagreeSound = new Audio();
+disagreeSound.src = "./sounds/disagree.mp3";
+disagreeSound.volume = 0.1;
+const sounds = new Audio();
+sounds.volume = 0.05;
+const sound = new Audio();
+sound.volume = 0.1;
+const goodJobSounds = new Audio();
+goodJobSounds.volume = 0.05;
+let yaySoundCheering = new Audio();
+yaySoundCheering.src = "./sounds/kids-cheering.mp3";
+yaySoundCheering.volume = 0.05;
 
 class GameObject {
   constructor(x, y, width, height, img, fruitName) {
@@ -80,20 +92,15 @@ class Game {
     ];
   }
   //method to splice called fruit if clicked on correctly
+
   removeFruit = (x, y) => {
-    const disagreeSound = new Audio();
-    disagreeSound.src = "./sounds/disagree.mp3";
-    disagreeSound.volume = 0.1;
-    const sounds = new Audio();
     sounds.src = this.soundList[this.count].path;
-    sounds.volume = 0.05;
     let soundName = this.soundList[this.count].name;
     sounds.play();
     //random audio for 3 the "good job" sounds played everytime correct fruit is clicked on
     let randomYay = Math.floor(Math.random() * this.yaySounds.length);
-    const goodJobSounds = new Audio();
     goodJobSounds.src = this.yaySounds[randomYay];
-    goodJobSounds.volume = 0.05;
+    
     //loop to check if click is the same pixel as the called fruit, if so, fruit is spliced
     this.fruits.forEach((fruit, index) => {
       if (
@@ -115,7 +122,6 @@ class Game {
 
   updateRainItems = () => {
     this.frames++;
-
     ctx.fillStyle = "PaleTurquoise";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -139,10 +145,9 @@ class Game {
     });
 
     if (this.frames % 340 === 0) {
-      const sound = new Audio();
       sound.src = this.soundList[this.count].path;
       sound.play();
-      sound.volume = 0.1;
+      
     }
 
     if (this.frames % 40 === 0) {
@@ -170,11 +175,10 @@ class Game {
 
   checkGameCompleted = () => {
     if (this.count == 12) {
-      let yaySoundCheering = new Audio();
-      yaySoundCheering.src = "./sounds/kids-cheering.mp3";
+      
 
       yaySoundCheering.play();
-      yaySoundCheering.volume = 0.05;
+      
       ctx.fillStyle = "purple";
       ctx.font = "60px Verdana";
       ctx.fillText("CONGRATULATIONS!", 130, 300);
@@ -215,12 +219,22 @@ window.onload = () => {
   });
 };
 
-
 function enableMute() {
   backgroundMusic.muted = true;
-  
+  disagreeSound.muted = true;
+  pop.muted = true;
+  sounds.muted = true;
+  sound.muted = true;
+  goodJobSounds.muted = true; 
+  yaySoundCheering.muted = true;
 }
 
 function disableMute() {
   backgroundMusic.muted = false;
+  disagreeSound.mutes = false;
+  pop.muted = false;
+  sounds.muted = false;
+  sound.muted = false;
+  goodJobSounds.muted = false;
+  yaySoundCheering.muted = false;
 }
