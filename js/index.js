@@ -14,10 +14,10 @@ disagreeSound.volume = 0.1;
 const sounds = new Audio();
 sounds.volume = 0.05;
 const sound = new Audio();
-sound.volume = 0.1;
+sound.volume = 0.07;
 const goodJobSounds = new Audio();
 goodJobSounds.volume = 0.05;
-let yaySoundCheering = new Audio();
+const yaySoundCheering = new Audio();
 yaySoundCheering.src = "./sounds/kids-cheering.mp3";
 yaySoundCheering.volume = 0.05;
 
@@ -88,7 +88,7 @@ class Game {
     this.yaySounds = [
       "./sounds/victory.mp3",
       "./sounds/good_job.mp3",
-      "./sounds/winner_sound.mp3",
+      "./sounds/yes.mp3",
     ];
   }
   //method to splice called fruit if clicked on correctly
