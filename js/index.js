@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const sideFruit = document.getElementById("current-fruit");
-
+// creates all the sound objects
 const backgroundMusic = new Audio();
 backgroundMusic.src = "./sounds/background.mp3";
 backgroundMusic.volume = 0.01;
@@ -54,7 +54,6 @@ class Game {
   constructor() {
     this.fruits = [];
     this.frames = 0;
-    this.score = 0;
     this.animationId;
     this.count = 0;
     this.fruitList = [
@@ -88,7 +87,7 @@ class Game {
     this.yaySounds = [
       "./sounds/victory.mp3",
       "./sounds/good_job.mp3",
-      "./sounds/winner_sound.mp3",
+      "./sounds/yes.mp3",
     ];
   }
   //method to splice called fruit if clicked on correctly
@@ -109,7 +108,7 @@ class Game {
         parseInt(y) >= parseInt(fruit.y) &&
         parseInt(y) <= parseInt(fruit.y + 80)
       ) {
-        if (soundName == fruit.fruitName) {
+        if (soundName == fruit.fruitName) { // checks if the called fruit is the same as the clicked fruit
           this.fruits.splice(index, 1);
           this.count++;
           goodJobSounds.play();
@@ -119,47 +118,49 @@ class Game {
       }
     });
   };
-
+  // This is the most most important block in which all the fruits are randomly drawn and positions are updated
+  // And background images are drawn as well as the time frames for generation of new fruits and display of fruit 
+  // to be clicked to the left of the canvas
   updateRainItems = () => {
     this.frames++;
     ctx.fillStyle = "PaleTurquoise";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height); // sets the blue background color for the sky
 
-    const bgImg = new Image();
+    const bgImg = new Image();  // draws the top background image(cloud of fruits)
     bgImg.src = "./images/fruits-background.png";
     const background = new GameObject(0, -20, 900, 580, bgImg);
     background.draw();
 
-    const bottomBgImg = new Image();
+    const bottomBgImg = new Image(); // draws the bottom background image(field/flowers)
     bottomBgImg.src = "./images/background-flowers.png";
     const bottomBackground = new GameObject(0, 340, 900, 450, bottomBgImg);
     bottomBackground.draw();
 
-    let randomFruit = Math.floor(Math.random() * this.fruitList.length);
+    let randomFruit = Math.floor(Math.random() * this.fruitList.length); // genrates rando index number for new fruit
     const fruitImage = new Image();
-    fruitImage.src = this.fruitList[randomFruit].path;
+    fruitImage.src = this.fruitList[randomFruit].path; //sets the src to a random index number from fruit list
 
-    this.fruits.forEach((fruit) => {
+    this.fruits.forEach((fruit) => { //updates the position of all the fruits on the screen
       fruit.updatePosition();
       fruit.draw();
     });
 
-    if (this.frames % 340 === 0) {
+    if (this.frames % 340 === 0) { //
       sound.src = this.soundList[this.count].path;
       sound.play();
       
     }
 
-    if (this.frames % 40 === 0) {
+    if (this.frames % 40 === 0) { // sets time frame for the side fruit display
       sideFruit.src = this.fruitList[this.count].path;
     }
 
-    if (this.frames % 20 === 0) {
+    if (this.frames % 20 === 0) { // sets time frame for the number of fruits generated per second
       const originY = 0;
 
       const maxX = canvas.width;
       const randomX = Math.floor(Math.random() * (maxX - 60));
-      const fruit = new GameObject(
+      const fruit = new GameObject( // produces the fruit object which is pushed to the fruits array
         randomX,
         originY,
         80,
@@ -169,26 +170,25 @@ class Game {
       );
 
       this.fruits.push(fruit);
-      this.score += 5;
     }
   };
 
   checkGameCompleted = () => {
     if (this.count == 12) {
-      yaySoundCheering.play();
+      yaySoundCheering.play(); //plays a YAY sound when game completed
       ctx.fillStyle = "purple";
       ctx.font = "60px Verdana";
       ctx.fillText("CONGRATULATIONS!", 130, 300);
 
-      cancelAnimationFrame(this.animationId);
+      cancelAnimationFrame(this.animationId); // when game is completed animation is interrupted
     }
   };
 
-  clear = () => {
+  clear = () => { // clears the canvas at give time frame to prepare for next cycle of drawings
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
 
-  updateGame = () => {
+  updateGame = () => { // gathers all parts which need to be updated at set time frame and invoked with the game object
     this.clear();
     this.updateRainItems();
     this.animationId = requestAnimationFrame(this.updateGame);
@@ -196,27 +196,27 @@ class Game {
   };
 }
 
-window.onload = () => {
-  const game = new Game();
-  document.getElementById("start-button").onclick = () => {
-    game.updateGame();
+window.onload = () => { // makes sure everything is loaded when page opens
+  const game = new Game(); // game object is created
+  document.getElementById("start-button").onclick = () => { 
+    game.updateGame(); // updated method is invoked 
     backgroundMusic.play();
   };
 
-  function removeFruitCursorPosition(canvas, event) {
+  function removeFruitCursorPosition(canvas, event) { // gets the mouse coordinates to match with the fruit pxel coordinates
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    game.removeFruit(x, y);
+    game.removeFruit(x, y);  // inokes the remove fruit method using the given coordinates
   }
 
-  canvas.addEventListener("click", function (e) {
+  canvas.addEventListener("click", function (e) { /// checks for click and inokes the removeFruit function
     removeFruitCursorPosition(canvas, e);
-    pop.play();
+    pop.play(); // plays a pop sound at every click
   });
 };
 
-function enableMute() {
+function enableMute() { // mutes and unmutes all sounds 
   backgroundMusic.muted = true;
   disagreeSound.muted = true;
   pop.muted = true;
