@@ -126,12 +126,12 @@ class Game {
 
     const bgImg = new Image();
     bgImg.src = "./images/fruits-background.png";
-    const background = new GameObject(0, -20, 900, 580, bgImg);
+    const background = new GameObject(0, -20, canvas.width, 580, bgImg);
     background.draw();
 
     const bottomBgImg = new Image();
     bottomBgImg.src = "./images/background-flowers.png";
-    const bottomBackground = new GameObject(0, 340, 900, 450, bottomBgImg);
+    const bottomBackground = new GameObject(0, 340, canvas.width, 450, bottomBgImg);
     bottomBackground.draw();
 
     let randomFruit = Math.floor(Math.random() * this.fruitList.length);

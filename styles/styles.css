@@ -5,31 +5,20 @@
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  height: 90vh; 
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
   background: url(../images/raindrops2.jpg) no-repeat;
   background-size: cover;
-  /* background-color: rgb(20, 38, 66); */
-  margin-top: 4rem;
-}
-
-#btn-img {
-  width: 55%;
-}
-
-.volume {
-  display: flex;
-  justify-content: flex-start;
-  height: 2rem;
-  
+  margin-top: 2rem;
+  margin-left: 5rem;
 }
 
 .volume button {
   width: 4rem;
+  margin-top: 2rem;
 }
 
 button {
@@ -50,14 +39,12 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 480px;
-  width: 350px;
 }
 
 #start-button {
   cursor: pointer;
-  width: 180px;
-  height: 200px;
+  width: 12rem;
+  height: 10rem;
   border-radius: 2.75rem;
   font-size: 2rem;
   font-weight: 600;
@@ -74,11 +61,16 @@ button {
   font-family: "Comic Sans MS";
 }
 
+.fun-rain {
+  margin: 1rem;
+  width: 15rem;
+}
+
 .fun-rain p {
-  margin: 2px;
+  margin: 2rem;
   font-weight: 600;
   font-family: "Comic Sans MS";
-  font-size: 72px;
+  font-size: 3.5rem;
   text-align: center;
   background: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
   -webkit-background-clip: text;
@@ -90,15 +82,9 @@ button {
     0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
 }
 
-#game-board {
-  display: flex;
-  justify-content: center;
-  background-image: url(/fun-rain/images/watermelon.png);
-  position: relative;
-}
 
 #current-fruit {
-  width: 120px;
+  width: 8rem;
 }
 
 em {
@@ -106,6 +92,46 @@ em {
 }
 
 #canvas {
+  /* width: 900px;
+  height: 600px; */
   cursor: pointer;
-  padding-right: 3rem;
+  padding-left: 2rem;
+}
+
+
+@media (max-width : 680px) {
+  html {
+    font-size: 12px;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 450px;
+    
+    
+    background-repeat: repeat;  
+    background-size: cover;
+    margin-top: 0;
+    
+  }
+
+  .play {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+  }
+  
+  #start-button {
+    margin: 2rem;
+    width: 15rem;
+  }
+ }
+ .fun-rain p {
+  margin: 0;
+  font-weight: 400;
+  
 }
