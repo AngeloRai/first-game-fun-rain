@@ -12,12 +12,17 @@
 
 <body>
 
-
+  <div id="game-board">
+    <canvas id="canvas" width="900" height="600"></canvas>
+  </div>
+  
   <div class="play">
-    
+    <div class="fun-rain">
+      <p>FUN RAIN</p>
+    </div>
     <div class="volume">
       <button onclick="enableMute()" type="button">Mute</button>
-      <button onclick="disableMute()" type="button">Play</button>
+      <button onclick="disableMute()" type="button">Unmute</button>
     </div>
     <div class="fruit-display">
       <img id="current-fruit" src="" alt="fruit display" />
@@ -26,13 +31,6 @@
       <p><em> LET'S PLAY! </em>Click on the correct fruit! Click again to go faster.</p>
     </button>
     
-  </div>
-
-  <div id="game-board">
-    <canvas id="canvas" width="900" height="600"></canvas>
-  </div>
-  <div class="fun-rain">
-    <p>FUN RAIN</p>
   </div>
 
   <script type="text/javascript" src="js/index.js"></script>
