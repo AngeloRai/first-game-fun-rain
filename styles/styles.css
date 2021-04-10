@@ -1,5 +1,12 @@
-body {
+* {
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,7 +49,6 @@ button {
 }
 
 #start-button {
-  display: flex;
   cursor: pointer;
   width: 180px;
   height: 200px;

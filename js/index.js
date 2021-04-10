@@ -54,7 +54,6 @@ class Game {
   constructor() {
     this.fruits = [];
     this.frames = 0;
-    this.score = 0;
     this.animationId;
     this.count = 0;
     this.fruitList = [
@@ -150,15 +149,16 @@ class Game {
       
     }
 
-    if (this.frames % 40 === 0) {
+    if (this.frames % 35 === 0) {
       sideFruit.src = this.fruitList[this.count].path;
     }
 
-    if (this.frames % 20 === 0) {
+    if (this.frames % 35 === 0) {
       const originY = 0;
-
+      
       const maxX = canvas.width;
       const randomX = Math.floor(Math.random() * (maxX - 60));
+      
       const fruit = new GameObject(
         randomX,
         originY,
@@ -177,7 +177,7 @@ class Game {
     if (this.count == 12) {
       yaySoundCheering.play();
       ctx.fillStyle = "purple";
-      ctx.font = "60px Verdana";
+      ctx.font = "60px Comic Sans MS";
       ctx.fillText("CONGRATULATIONS!", 130, 300);
 
       cancelAnimationFrame(this.animationId);
