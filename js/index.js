@@ -198,9 +198,11 @@ class Game {
 
 window.onload = () => {
   const game = new Game();
+  
   document.getElementById("start-button").onclick = () => {
     game.updateGame();
     backgroundMusic.play();
+    
   };
 
   function removeFruitCursorPosition(canvas, event) {
