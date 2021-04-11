@@ -21,6 +21,8 @@ let yaySoundCheering = new Audio();
 yaySoundCheering.src = "./sounds/kids-cheering.mp3";
 yaySoundCheering.volume = 0.05;
 
+const GAME_COMPLETE_COUNT = 12
+
 class GameObject {
   constructor(x, y, width, height, img, fruitName) {
     this.x = x;
@@ -28,7 +30,6 @@ class GameObject {
     this.width = width;
     this.height = height;
     this.img = img;
-    this.speedX = 0;
     this.speedY = 1.5;
     this.fruitName = fruitName;
   }
@@ -36,7 +37,6 @@ class GameObject {
   //called inside the update invoked inside the "update()"" method inside the Game class
   //(requestAnimationFrame)
   updatePosition() {
-    this.x += this.speedX;
     this.y += this.speedY;
   }
   // generate new images with updated position of the fruit objects invoked in the updateRainItems
@@ -54,7 +54,6 @@ class Game {
   constructor() {
     this.fruits = [];
     this.frames = 0;
-    this.animationId;
     this.count = 0;
     this.fruitList = [
       { name: "strawberry", path: "./images/strawberry.png" },
@@ -173,15 +172,20 @@ class Game {
     }
   };
 
-  checkGameCompleted = () => {
-    if (this.count == 12) {
-      yaySoundCheering.play(); //plays a YAY sound when game completed
-      ctx.fillStyle = "purple";
-      ctx.font = "60px Verdana";
-      ctx.fillText("CONGRATULATIONS!", 130, 300);
+  endGame = (animationId) => {
+    yaySoundCheering.play(); //plays a YAY sound when game completed
+    ctx.fillStyle = "purple";
+    ctx.font = "60px Verdana";
+    ctx.fillText("CONGRATULATIONS!", 130, 300);
 
-      cancelAnimationFrame(this.animationId); // when game is completed animation is interrupted
+    cancelAnimationFrame(animationId); // when game is completed animation is interrupted
+  };
+
+  checkGameComplete = () => {
+    if (this.count == GAME_COMPLETE_COUNT) {
+      return true
     }
+    return false
   };
 
   clear = () => { // clears the canvas at give time frame to prepare for next cycle of drawings
@@ -189,16 +193,24 @@ class Game {
   };
 
   updateGame = () => { // gathers all parts which need to be updated at set time frame and invoked with the game object
+    let animationId
+
     this.clear();
     this.updateRainItems();
-    this.animationId = requestAnimationFrame(this.updateGame);
-    this.checkGameCompleted();
+    animationId = requestAnimationFrame(this.updateGame);
+    if (this.checkGameComplete()) {
+      this.endGame(animationId);
+    }
   };
 }
 
 window.onload = () => { // makes sure everything is loaded when page opens
-  const game = new Game(); // game object is created
+  const game = new Game()
+
   document.getElementById("start-button").onclick = () => { 
+    if (game.checkGameComplete()) {
+      game.count = 0
+    }
     game.updateGame(); // updated method is invoked 
     backgroundMusic.play();
   };
