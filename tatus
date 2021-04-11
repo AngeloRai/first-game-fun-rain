@@ -1,0 +1,59 @@
+[33mcommit d014d54686447ad8a4a79d6de7967c06c1cc6b82[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Wed Apr 7 08:25:07 2021 -0300
+
+    css margin
+
+[33mcommit 4c4bf38004ca368b5db08df5d9d0138b3a381dd5[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Tue Apr 6 22:16:26 2021 -0300
+
+    time frame
+
+[33mcommit e4a5f86d92977cf3d9230cfebd56d1a93e6aa514[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Tue Apr 6 21:54:33 2021 -0300
+
+    ...
+
+[33mcommit 7fcb6f771754b48b4d131ee479e43c4aa3cf919a[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Tue Apr 6 21:49:31 2021 -0300
+
+    button and colors
+
+[33mcommit cc63c6dbc292470a07ddce82b7b4223d27026a74[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Tue Apr 6 20:41:17 2021 -0300
+
+    sounds
+
+[33mcommit c43b2f55c8085ff9764bdaffcf42287083a9ffe2[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Tue Apr 6 17:59:24 2021 -0300
+
+    almost done
+
+[33mcommit 62bfc1fb6484fbb90d401dfa713d20d226597321[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Tue Apr 6 12:37:25 2021 -0300
+
+    added voice and matched to the fruit images to make disapear
+
+[33mcommit 22a05952a233ef55c8ed9a58e8d0466a2b35be5b[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Mon Apr 5 18:59:53 2021 -0300
+
+    some more changes
+
+[33mcommit b09a99ca6d99f7b61c65714b922f411350b22fd0[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Mon Apr 5 16:49:25 2021 -0300
+
+    changes click event
+
+[33mcommit 0425f92ccd28662aac043b16745d691c86b46e69[m
+Author: Angelo Raimondi <angraimondi@gmail.com>
+Date:   Sun Apr 4 19:02:43 2021 -0300
+
+    first commit

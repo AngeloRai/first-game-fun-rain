@@ -5,20 +5,29 @@
 }
 
 body {
-  width: 90vw;
-  height: 90vh; 
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
   background: url(../images/raindrops2.jpg) no-repeat;
   background-size: cover;
-  margin-top: 2rem;
-  margin-left: 5rem;
+  /* background-color: rgb(20, 38, 66); */
+  margin-top: 4rem;
 }
 
+#btn-img {
+  width: 55%;
+}
+
+.volume {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem;
+}
 .volume button {
-  width: 4rem;
-  margin-top: 2rem;
+  width: 3.5rem;
+  height: 1.5rem;
 }
 
 button {
@@ -82,7 +91,6 @@ button {
     0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
 }
 
-
 #current-fruit {
   width: 8rem;
 }
@@ -92,27 +100,23 @@ em {
 }
 
 #canvas {
-  /* width: 900px;
-  height: 600px; */
   cursor: pointer;
   padding-left: 2rem;
 }
 
-
-@media (max-width : 580px) {
+@media (max-width: 580px) {
   html {
     font-size: 12px;
   }
-  
+
   body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 450px;
-    background-repeat: repeat;  
+    background-repeat: repeat;
     background-size: cover;
     margin-top: 6rem;
-    
   }
 
   .play {
@@ -120,23 +124,21 @@ em {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
   }
-  
+
   #start-button {
     margin-right: 5rem;
     width: 15rem;
     height: auto;
   }
- }
- .fun-rain p {
-  
-  margin: 0;
-  font-weight: 400;
-  
-}
-.fun-rain {
-  margin-bottom: 1rem;
-  width: 13rem;
-  
+
+  .fun-rain p {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .fun-rain {
+    margin-bottom: 1rem;
+    width: 13rem;
+  }
 }
